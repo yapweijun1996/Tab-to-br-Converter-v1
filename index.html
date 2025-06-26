@@ -1,0 +1,88 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tab to Comma Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background-color: #f9f9f9;
+        }
+        h2 {
+            text-align: center;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+        }
+        textarea {
+            width: 100%;
+            height: 150px;
+            padding: 10px;
+            margin-bottom: 15px;
+            resize: vertical;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+        button {
+            display: inline-block;
+            width: 48%;
+            padding: 10px;
+            margin: 1%;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .button-group {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Tab to Comma Converter</h2>
+        <textarea id="inputData" placeholder="Paste your tab-separated data here"></textarea>
+        <div class="button-group">
+            <button onclick="convertData()">Convert to Comma-Separated</button>
+            <button onclick="copyData()">Copy Output</button>
+        </div>
+        <textarea id="outputData" placeholder="Converted comma-separated data will appear here" readonly></textarea>
+    </div>
+
+    <script>
+        function convertData() {
+            const input = document.getElementById('inputData').value;
+            // Replace all tabs with commas
+            const output = input.replace(/\t/g, '\r');
+            document.getElementById('outputData').value = output;
+        }
+
+        function copyData() {
+            const output = document.getElementById('outputData');
+            output.select();
+            output.setSelectionRange(0, 99999); // For mobile devices
+
+            try {
+                const successful = document.execCommand('copy');
+                if (successful) {
+                    alert('Output copied to clipboard!');
+                } else {
+                    alert('Failed to copy output.');
+                }
+            } catch (err) {
+                alert('Browser does not support copying.');
+            }
+        }
+    </script>
+</body>
+</html>
